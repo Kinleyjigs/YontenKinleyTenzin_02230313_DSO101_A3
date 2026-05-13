@@ -63,7 +63,7 @@ jobs:
       # Step 8: Verify Deployment
       - name: Deployment Status
         run: |
-          echo "✅ Docker images built and pushed to DockerHub"
-          echo "✅ Render deployment webhooks triggered"
-          echo "🔗 Backend image: ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:${{ github.run_number }}"
-          echo "🔗 Frontend image: ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:${{ github.run_number }}"
+          echo " Docker images built and pushed to DockerHub"
+          echo "Render deployment webhooks triggered"
+          echo " Backend image: ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:${{ github.run_number }}"
+          echo " Frontend image: ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:${{ github.run_number }}"

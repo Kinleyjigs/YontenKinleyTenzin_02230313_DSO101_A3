@@ -19,12 +19,12 @@
 10. [Challenges & Solutions](#challenges--solutions)
 11. [Learning Outcomes](#learning-outcomes)
 
----
+-------
 
 ## Overview
 
 This assignment demonstrates the implementation of a complete CI/CD pipeline using GitHub Actions to automate:
-- Docker container building and testing
+- Docker container building and testing.
 - Pushing container images to DockerHub
 - Automated deployment to Render.com
 

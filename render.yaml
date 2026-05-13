@@ -9,13 +9,13 @@ services:
     autoDeploy: true
     envVars:
       - key: DB_HOST
-        value: dpg-d6r4d4vafjfc73f0gsd0-a.singapore-postgres.render.com
+        sync: false
       - key: DB_USER
-        value: todo_admin
+        sync: false
       - key: DB_PASSWORD
-        value: Q2WvEO1Jry9evX1cRtDA6TQgBdxUVrZJ
+        sync: false
       - key: DB_NAME
-        value: todo_db_c3j8
+        sync: false
       - key: DB_PORT
         value: "5432"
       - key: PORT
@@ -32,7 +32,7 @@ services:
     dockerContext: ./frontend
     envVars:
       - key: REACT_APP_API_URL
-        value: https://todo-backend-latest-kr1t.onrender.com
+        sync: false
       - key: NODE_ENV
         value: production
 

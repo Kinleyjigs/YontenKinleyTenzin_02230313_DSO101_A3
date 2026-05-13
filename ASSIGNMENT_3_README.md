@@ -1,25 +1,8 @@
-# Assignment 3: GitHub Actions CI/CD Pipeline - Todo Application
+# Assignment 3: GitHub Actions CI/CD Pipeline
 
 **Student:** Yonten Kinley Tenzin  
 **Student ID:** 02230313  
-**Date:** May 13, 2026
 
----
-
-## Table of Contents
-1. [Overview](#overview)
-2. [Objectives](#objectives)
-3. [Technologies Used](#technologies-used)
-4. [Project Structure](#project-structure)
-5. [Setup Instructions](#setup-instructions)
-6. [GitHub Actions Workflow](#github-actions-workflow)
-7. [Deployment Guide](#deployment-guide)
-8. [GitHub Secrets Configuration](#github-secrets-configuration)
-9. [Screenshots](#screenshots)
-10. [Challenges & Solutions](#challenges--solutions)
-11. [Learning Outcomes](#learning-outcomes)
-
--------
 
 ## Overview
 
@@ -34,7 +17,7 @@ The Todo List application from Assignment 1 (React, Node.js, Express, PostgreSQL
 
 ## Objectives
 
-✅ **Task 1:** Verify GitHub repository setup
+**Task 1:** Verify GitHub repository setup
 - Repository is **public**
 - `package.json` contains proper scripts (`start`, `dev`, `build`)
 - All source code is committed and accessible

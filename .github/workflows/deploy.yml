@@ -11,20 +11,33 @@ jobs:
     steps:
       # Step 1: Checkout Repository
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Step 2: Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Step 3: Login to DockerHub
+      # Step 3: Validate required secrets before Docker login
+      - name: Validate Required Secrets
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          RENDER_BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+          RENDER_FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
+        run: |
+          test -n "$DOCKERHUB_USERNAME" || { echo "::error::Missing repository secret: DOCKERHUB_USERNAME"; exit 1; }
+          test -n "$DOCKERHUB_TOKEN" || { echo "::error::Missing repository secret: DOCKERHUB_TOKEN"; exit 1; }
+          test -n "$RENDER_BACKEND_DEPLOY_HOOK" || { echo "::error::Missing repository secret: RENDER_BACKEND_DEPLOY_HOOK"; exit 1; }
+          test -n "$RENDER_FRONTEND_DEPLOY_HOOK" || { echo "::error::Missing repository secret: RENDER_FRONTEND_DEPLOY_HOOK"; exit 1; }
+
+      # Step 4: Login to DockerHub
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Step 4: Build and Push Backend Docker Image
+      # Step 5: Build and Push Backend Docker Image
       - name: Build and Push Backend Docker Image
         uses: docker/build-push-action@v5
         with:
@@ -35,7 +48,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/todo-backend:${{ github.run_number }}
 
-      # Step 5: Build and Push Frontend Docker Image
+      # Step 6: Build and Push Frontend Docker Image
       - name: Build and Push Frontend Docker Image
         uses: docker/build-push-action@v5
         with:
@@ -46,19 +59,19 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/todo-frontend:${{ github.run_number }}
 
-      # Step 6: Trigger Render Deployment for Backend
+      # Step 7: Trigger Render Deployment for Backend
       - name: Trigger Render Backend Deployment
         run: |
           curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
         continue-on-error: true
 
-      # Step 7: Trigger Render Deployment for Frontend
+      # Step 8: Trigger Render Deployment for Frontend
       - name: Trigger Render Frontend Deployment
         run: |
           curl -X POST ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
         continue-on-error: true
 
-      # Step 8: Verify Deployment
+      # Step 9: Verify Deployment
       - name: Deployment Status
         run: |
           echo " Docker images built and pushed to DockerHub"
